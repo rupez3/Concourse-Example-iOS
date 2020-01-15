@@ -1,0 +1,54 @@
+resources:
+  - name: source-code
+    type: git
+    source:
+      uri: https://github.com/rupez3/Concourse-Example-iOS
+      branch: master
+jobs:
+  - name: pull-source
+    plan:
+    - get: source-code
+      trigger: true
+    - task: first-task
+      config:
+        platform: darwin
+        inputs:
+        - name: source-code
+        outputs:
+        - name: my-output-folder
+        run:
+            path: sh
+            args:
+              - -exec
+              - |
+                whoami
+                env
+                find .
+                ls
+                cd source-code
+                ls
+                swift --version
+                fastlane --version
+                fastlane lanes
+
+  - name: build
+    plan:
+      - get: source-code
+        passed: [pull-source]
+        trigger: true
+      - task: specs
+        config:
+          platform: darwin
+          inputs:
+            - name: source-code
+          run:
+            path: sh
+            args:
+              - -exec
+              - |
+                pwd
+                cd ./source-code/concourse-test
+                ls
+                # xcodebuild -scheme concourse-test -project concourse-test.xcodeproj -destination 'generic/platform=iOS' -allowProvisioningUpdates build
+                fastlane --version
+                fastlane lanes

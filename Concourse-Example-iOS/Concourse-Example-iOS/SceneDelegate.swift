@@ -1,9 +1,9 @@
 //
 //  SceneDelegate.swift
-//  concourse-test
+//  Concourse-Example-iOS
 //
-//  Created by Rupesh Chhetri on 1/14/20.
-//  Copyright © 2020 Rupesh Chhetri. All rights reserved.
+//  Created by Rupesh Chhetri on 1/15/20.
+//  Copyright © 2020 com.rupesh.concourse-example-ios. All rights reserved.
 //
 
 import UIKit
